@@ -10,6 +10,7 @@
 		7AE197E71C96EB7A00BD3CBA /* NetworkLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AE197E61C96EB7A00BD3CBA /* NetworkLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7AE197EE1C96EB7A00BD3CBA /* NetworkLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE197E31C96EB7A00BD3CBA /* NetworkLib.framework */; };
 		7AE197F31C96EB7A00BD3CBA /* NetworkLibTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE197F21C96EB7A00BD3CBA /* NetworkLibTests.swift */; };
+		7AE197FE1C96FDE800BD3CBA /* SplooshSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE197FD1C96FDE800BD3CBA /* SplooshSearch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		7AE197ED1C96EB7A00BD3CBA /* NetworkLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetworkLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AE197F21C96EB7A00BD3CBA /* NetworkLibTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLibTests.swift; sourceTree = "<group>"; };
 		7AE197F41C96EB7A00BD3CBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AE197FD1C96FDE800BD3CBA /* SplooshSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplooshSearch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				7AE197E61C96EB7A00BD3CBA /* NetworkLib.h */,
 				7AE197E81C96EB7A00BD3CBA /* Info.plist */,
+				7AE197FD1C96FDE800BD3CBA /* SplooshSearch.swift */,
 			);
 			path = NetworkLib;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AE197FE1C96FDE800BD3CBA /* SplooshSearch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +314,7 @@
 		7AE197F81C96EB7A00BD3CBA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -320,12 +325,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group5.NetworkLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		7AE197F91C96EB7A00BD3CBA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
