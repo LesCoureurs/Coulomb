@@ -6,7 +6,6 @@
 //  Copyright © 2016 nus.cs3217.group5. All rights reserved.
 //
 
-import UIKit
 import MultipeerConnectivity
 
 public protocol SplooshHostDelegate: class {
