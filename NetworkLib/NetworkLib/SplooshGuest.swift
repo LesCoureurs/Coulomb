@@ -112,11 +112,13 @@ extension SplooshGuest: MCSessionDelegate {
     // Handles MCSessionState changes: NotConnected, Connecting and Connected.
     public func session(session: MCSession, peer peerID: MCPeerID,
         didChangeState state: MCSessionState) {
-            if state == .Connected {
-                serviceBrowser?.stopBrowsingForPeers()
-                delegate?.connectedToHost(peerID)
+            if state != .Connecting {
+                if state == .Connected {
+                    serviceBrowser?.stopBrowsingForPeers()
+                    delegate?.connectedToHost(peerID)
+                }
+                delegate?.connectionsChanged(session.connectedPeers)
             }
-            delegate?.connectionsChanged(session.connectedPeers)
     }
     
     // Handles incomming NSData
