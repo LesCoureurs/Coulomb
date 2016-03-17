@@ -81,6 +81,18 @@ public class SplooshGuest: NSObject {
     public func getFoundHostAtTableRow(rowNum: Int) -> MCPeerID? {
         return hostsFound[rowNum]
     }
+    
+    // MARK: Sending data to other peers in the session
+    
+    public func sendData(data: NSData, mode: MCSessionSendDataMode) -> Bool {
+        do {
+            try session.sendData(data, toPeers: session.connectedPeers, withMode: mode)
+        } catch {
+            return false
+        }
+        
+        return true
+    }
 }
 
 extension SplooshGuest: MCNearbyServiceBrowserDelegate {

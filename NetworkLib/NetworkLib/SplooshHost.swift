@@ -61,6 +61,18 @@ public class SplooshHost: NSObject {
     public func getConnectedPeers() -> [MCPeerID] {
         return session.connectedPeers
     }
+    
+    // MARK: Sending data to other peers in the session
+    
+    public func sendData(data: NSData, mode: MCSessionSendDataMode) -> Bool {
+        do {
+            try session.sendData(data, toPeers: session.connectedPeers, withMode: mode)
+        } catch {
+            return false
+        }
+        
+        return true
+    }
 }
 
 extension SplooshHost: MCNearbyServiceAdvertiserDelegate {
