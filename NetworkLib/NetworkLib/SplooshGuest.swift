@@ -70,6 +70,10 @@ public class SplooshGuest: NSObject {
         
         browser.invitePeer(host, toSession: session, withContext: nil, timeout: 30)
     }
+    
+    public func getFoundHosts() -> [MCPeerID] {
+        return hostsFound
+    }
 }
 
 extension SplooshGuest: MCNearbyServiceBrowserDelegate {
