@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02009B611C9B2D760057FF18 /* SplooshCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02009B601C9B2D760057FF18 /* SplooshCommon.swift */; };
 		7A3415801C9A9A45007BED98 /* SplooshHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A34157F1C9A9A45007BED98 /* SplooshHost.swift */; };
 		7A3415821C9A9A96007BED98 /* SplooshGuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3415811C9A9A96007BED98 /* SplooshGuest.swift */; };
 		7AE197E71C96EB7A00BD3CBA /* NetworkLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AE197E61C96EB7A00BD3CBA /* NetworkLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02009B601C9B2D760057FF18 /* SplooshCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplooshCommon.swift; sourceTree = "<group>"; };
 		7A34157F1C9A9A45007BED98 /* SplooshHost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplooshHost.swift; sourceTree = "<group>"; };
 		7A3415811C9A9A96007BED98 /* SplooshGuest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplooshGuest.swift; sourceTree = "<group>"; };
 		7AE197E31C96EB7A00BD3CBA /* NetworkLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetworkLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +84,7 @@
 				7AE197FD1C96FDE800BD3CBA /* SplooshSearch.swift */,
 				7A34157F1C9A9A45007BED98 /* SplooshHost.swift */,
 				7A3415811C9A9A96007BED98 /* SplooshGuest.swift */,
+				02009B601C9B2D760057FF18 /* SplooshCommon.swift */,
 			);
 			path = NetworkLib;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 				7A3415821C9A9A96007BED98 /* SplooshGuest.swift in Sources */,
 				7A3415801C9A9A45007BED98 /* SplooshHost.swift in Sources */,
 				7AE197FE1C96FDE800BD3CBA /* SplooshSearch.swift in Sources */,
+				02009B611C9B2D760057FF18 /* SplooshCommon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

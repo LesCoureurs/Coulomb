@@ -16,30 +16,11 @@ public protocol SplooshHostDelegate: class {
     func handleDataPacket(data: NSData, peerID: MCPeerID)
 }
 
-public class SplooshHost: NSObject {
-    let serviceType: String
-    let myPeerId: MCPeerID
-    
+public class SplooshHost: SplooshCommon {
     var autoAcceptGuests = true
     weak var delegate: SplooshHostDelegate?
     
     private var serviceAdvertiser: MCNearbyServiceAdvertiser?
-    private lazy var session: MCSession = {
-        let session = MCSession(peer: self.myPeerId, securityIdentity: nil,
-            encryptionPreference: .Required)
-        session.delegate = self
-        return session
-    }()
-    
-    public init(serviceType: String, peerId: String) {
-        self.serviceType = serviceType
-        myPeerId = MCPeerID(displayName: peerId)
-    }
-    
-    public convenience init(serviceType: String) {
-        let myDeviceId = UIDevice.currentDevice().name
-        self.init(serviceType: serviceType, peerId: myDeviceId)
-    }
     
     public func startSearchingForGuests() {
         if serviceAdvertiser == nil {
@@ -59,18 +40,6 @@ public class SplooshHost: NSObject {
     
     public func getConnectedPeers() -> [MCPeerID] {
         return session.connectedPeers
-    }
-    
-    // MARK: Sending data to other peers in the session
-    
-    public func sendData(data: NSData, mode: MCSessionSendDataMode) -> Bool {
-        do {
-            try session.sendData(data, toPeers: session.connectedPeers, withMode: mode)
-        } catch {
-            return false
-        }
-        
-        return true
     }
 }
 
@@ -93,9 +62,10 @@ extension SplooshHost: MCNearbyServiceAdvertiserDelegate {
     }
 }
 
-extension SplooshHost: MCSessionDelegate {
+// MARK: MCSessionDelegate methods override
+extension SplooshHost {
     // Handles MCSessionState changes: NotConnected, Connecting and Connected.
-    public func session(session: MCSession, peer peerID: MCPeerID,
+    public override func session(session: MCSession, peer peerID: MCPeerID,
         didChangeState state: MCSessionState) {
             if state != .Connecting {
                 delegate?.connectedGuestsChanged(session.connectedPeers)
@@ -103,26 +73,8 @@ extension SplooshHost: MCSessionDelegate {
     }
     
     // Handles incomming NSData
-    public func session(session: MCSession, didReceiveData data: NSData,
+    public override func session(session: MCSession, didReceiveData data: NSData,
         fromPeer peerID: MCPeerID) {
             delegate?.handleDataPacket(data, peerID: peerID)
-    }
-    
-    // Handles incoming NSInputStream
-    public func session(session: MCSession, didReceiveStream stream: NSInputStream,
-        withName streamName: String, fromPeer peerID: MCPeerID) {
-            
-    }
-    
-    // Handles finish receiving resource
-    public func session(session: MCSession, didFinishReceivingResourceWithName resourceName: String,
-        fromPeer peerID: MCPeerID, atURL localURL: NSURL, withError error: NSError?) {
-            
-    }
-    
-    // Handles start receiving resource
-    public func session(session: MCSession, didStartReceivingResourceWithName resourceName: String,
-        fromPeer peerID: MCPeerID, withProgress progress: NSProgress) {
-            
     }
 }
