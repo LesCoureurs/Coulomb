@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A3415801C9A9A45007BED98 /* SplooshHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A34157F1C9A9A45007BED98 /* SplooshHost.swift */; };
+		7A3415821C9A9A96007BED98 /* SplooshGuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3415811C9A9A96007BED98 /* SplooshGuest.swift */; };
 		7AE197E71C96EB7A00BD3CBA /* NetworkLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AE197E61C96EB7A00BD3CBA /* NetworkLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7AE197EE1C96EB7A00BD3CBA /* NetworkLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE197E31C96EB7A00BD3CBA /* NetworkLib.framework */; };
 		7AE197F31C96EB7A00BD3CBA /* NetworkLibTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE197F21C96EB7A00BD3CBA /* NetworkLibTests.swift */; };
@@ -24,6 +26,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A34157F1C9A9A45007BED98 /* SplooshHost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplooshHost.swift; sourceTree = "<group>"; };
+		7A3415811C9A9A96007BED98 /* SplooshGuest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplooshGuest.swift; sourceTree = "<group>"; };
 		7AE197E31C96EB7A00BD3CBA /* NetworkLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetworkLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AE197E61C96EB7A00BD3CBA /* NetworkLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkLib.h; sourceTree = "<group>"; };
 		7AE197E81C96EB7A00BD3CBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,6 +80,8 @@
 				7AE197E61C96EB7A00BD3CBA /* NetworkLib.h */,
 				7AE197E81C96EB7A00BD3CBA /* Info.plist */,
 				7AE197FD1C96FDE800BD3CBA /* SplooshSearch.swift */,
+				7A34157F1C9A9A45007BED98 /* SplooshHost.swift */,
+				7A3415811C9A9A96007BED98 /* SplooshGuest.swift */,
 			);
 			path = NetworkLib;
 			sourceTree = "<group>";
@@ -199,6 +205,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A3415821C9A9A96007BED98 /* SplooshGuest.swift in Sources */,
+				7A3415801C9A9A45007BED98 /* SplooshHost.swift in Sources */,
 				7AE197FE1C96FDE800BD3CBA /* SplooshSearch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,6 +393,7 @@
 				7AE197F91C96EB7A00BD3CBA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7AE197FA1C96EB7A00BD3CBA /* Build configuration list for PBXNativeTarget "NetworkLibTests" */ = {
 			isa = XCConfigurationList;
@@ -393,6 +402,7 @@
 				7AE197FC1C96EB7A00BD3CBA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
