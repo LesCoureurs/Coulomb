@@ -18,6 +18,7 @@ public protocol SplooshGuestDelegate: class {
 }
 
 public class SplooshGuest: NSObject {
+    static let defaultTimeout: NSTimeInterval = 30
     let serviceType: String
     let myPeerId: MCPeerID
     
@@ -59,7 +60,7 @@ public class SplooshGuest: NSObject {
         hostsFound = []
     }
     
-    public func connectToHost(host: MCPeerID) {
+    public func connectToHost(host: MCPeerID, context: NSData? = nil, timeout: NSTimeInterval = defaultTimeout) {
         guard hostsFound.contains(host) else {
             return
         }
@@ -68,7 +69,7 @@ public class SplooshGuest: NSObject {
             return
         }
         
-        browser.invitePeer(host, toSession: session, withContext: nil, timeout: 30)
+        browser.invitePeer(host, toSession: session, withContext: context, timeout: timeout)
     }
     
     public func getFoundHosts() -> [MCPeerID] {
