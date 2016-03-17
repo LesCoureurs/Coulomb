@@ -74,6 +74,10 @@ public class SplooshGuest: NSObject {
     public func getFoundHosts() -> [MCPeerID] {
         return hostsFound
     }
+    
+    public func getFoundHostAtTableRow(rowNum: Int) -> MCPeerID? {
+        return hostsFound[rowNum]
+    }
 }
 
 extension SplooshGuest: MCNearbyServiceBrowserDelegate {
