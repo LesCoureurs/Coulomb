@@ -55,6 +55,10 @@ public class SplooshHost: NSObject {
         }
         advertiser.stopAdvertisingPeer()
     }
+    
+    public func getConnectedPeers() -> [MCPeerID] {
+        return session.connectedPeers
+    }
 }
 
 extension SplooshHost: MCNearbyServiceAdvertiserDelegate {
