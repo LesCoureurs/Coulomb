@@ -13,6 +13,8 @@ public protocol SplooshGuestDelegate: class {
     func hostsFoundChanged(hosts: [MCPeerID])
     
     func connectedToHost(host: MCPeerID)
+    
+    func connectionsChanged(peers: [MCPeerID])
 }
 
 public class SplooshGuest: NSObject {
@@ -106,6 +108,7 @@ extension SplooshGuest: MCSessionDelegate {
                 serviceBrowser?.stopBrowsingForPeers()
                 delegate?.connectedToHost(peerID)
             }
+            delegate?.connectionsChanged(session.connectedPeers)
     }
     
     // Handles incomming NSData

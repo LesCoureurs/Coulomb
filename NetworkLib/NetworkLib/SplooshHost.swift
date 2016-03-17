@@ -80,9 +80,7 @@ extension SplooshHost: MCSessionDelegate {
     // Handles MCSessionState changes: NotConnected, Connecting and Connected.
     public func session(session: MCSession, peer peerID: MCPeerID,
         didChangeState state: MCSessionState) {
-            if state == .Connected {
-                delegate?.connectedGuestsChanged(session.connectedPeers)
-            }
+            delegate?.connectedGuestsChanged(session.connectedPeers)
     }
     
     // Handles incomming NSData
