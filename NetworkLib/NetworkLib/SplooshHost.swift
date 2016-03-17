@@ -13,6 +13,8 @@ public protocol SplooshHostDelegate: class {
     func connectedGuestsChanged(guests: [MCPeerID])
     
     func guestRequestingJoin(guest: MCPeerID, acceptGuest: (Bool) -> Void)
+    
+    func handleDataPacket(data: NSData, peerID: MCPeerID)
 }
 
 public class SplooshHost: NSObject {

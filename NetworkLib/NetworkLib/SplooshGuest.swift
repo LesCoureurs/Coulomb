@@ -15,6 +15,8 @@ public protocol SplooshGuestDelegate: class {
     func connectedToHost(host: MCPeerID)
     
     func connectionsChanged(peers: [MCPeerID])
+    
+    func handleDataPacket(data: NSData, peerID: MCPeerID)
 }
 
 public class SplooshGuest: NSObject {
