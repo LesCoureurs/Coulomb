@@ -139,7 +139,7 @@ extension SplooshGuest: MCSessionDelegate {
     // Handles incomming NSData
     public func session(session: MCSession, didReceiveData data: NSData,
         fromPeer peerID: MCPeerID) {
-        
+            delegate?.handleDataPacket(data, peerID: peerID)
     }
     
     // Handles incoming NSInputStream
