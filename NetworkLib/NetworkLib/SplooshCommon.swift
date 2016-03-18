@@ -30,7 +30,7 @@ public class SplooshCommon: NSObject {
     }
     
     // MARK: Sending data to other peers in the session
-    
+    // This method is async
     public func sendData(data: NSData, mode: MCSessionSendDataMode) -> Bool {
         do {
             NSLog("%@", "send data to host: \(data)")
