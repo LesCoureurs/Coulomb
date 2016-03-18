@@ -33,8 +33,10 @@ public class SplooshCommon: NSObject {
     
     public func sendData(data: NSData, mode: MCSessionSendDataMode) -> Bool {
         do {
+            NSLog("%@", "send data to host: \(data)")
             try session.sendData(data, toPeers: session.connectedPeers, withMode: mode)
         } catch {
+            NSLog("%@", "send data failed: \(data)")
             return false
         }
         
@@ -72,4 +74,14 @@ extension SplooshCommon: MCSessionDelegate {
         fromPeer peerID: MCPeerID, withProgress progress: NSProgress) {
             
     }
+}
+
+extension MCSessionState {
+    func stringValue() -> String {
+        switch(self) {
+        case .NotConnected: return "NotConnected"
+        case .Connecting: return "Connecting"
+        case .Connected: return "Connected"
+        }
+    }    
 }

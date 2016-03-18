@@ -67,7 +67,8 @@ extension SplooshGuest: MCNearbyServiceBrowserDelegate {
     // Peer is found in browser
     public func browser(browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID,
         withDiscoveryInfo info: [String : String]?) {
-        
+            NSLog("%@", "foundPeer: \(peerID)")
+            
             guard let discoveryInfo = info else {
                 return
             }
@@ -75,12 +76,15 @@ extension SplooshGuest: MCNearbyServiceBrowserDelegate {
                 return
             }
             
+            NSLog("%@", "invitePeer: \(peerID)")
             hostsFound.append(peerID)
             delegate?.hostsFoundChanged(hostsFound)
     }
     
     // Peer is lost in browser
     public func browser(browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
+        NSLog("%@", "lostPeer: \(peerID)")
+
         guard hostsFound.contains(peerID) else {
             return
         }
@@ -96,6 +100,7 @@ extension SplooshGuest {
     // Handles MCSessionState changes: NotConnected, Connecting and Connected.
     public override func session(session: MCSession, peer peerID: MCPeerID,
         didChangeState state: MCSessionState) {
+            NSLog("%@", "peer \(peerID) didChangeState: \(state.stringValue())")
             if state != .Connecting {
                 if state == .Connected {
                     serviceBrowser?.stopBrowsingForPeers()
@@ -108,6 +113,7 @@ extension SplooshGuest {
     // Handles incomming NSData
     public override func session(session: MCSession, didReceiveData data: NSData,
         fromPeer peerID: MCPeerID) {
+            NSLog("%@", "Data received: \(data)")
             delegate?.handleDataPacket(data, peerID: peerID)
     }
 }

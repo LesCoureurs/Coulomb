@@ -48,7 +48,8 @@ extension SplooshHost: MCNearbyServiceAdvertiserDelegate {
     public func advertiser(advertiser: MCNearbyServiceAdvertiser,
         didReceiveInvitationFromPeer peerID: MCPeerID,
         withContext context: NSData?, invitationHandler: (Bool, MCSession) -> Void) {
-        
+            NSLog("%@", "didReceiveInvitationFromPeer \(peerID)")
+            
             let acceptGuest = {
                 (accepted: Bool) -> Void in
                 invitationHandler(accepted, self.session)
@@ -67,6 +68,7 @@ extension SplooshHost {
     // Handles MCSessionState changes: NotConnected, Connecting and Connected.
     public override func session(session: MCSession, peer peerID: MCPeerID,
         didChangeState state: MCSessionState) {
+            NSLog("%@", "peer \(peerID) didChangeState: \(state.stringValue())")
             if state != .Connecting {
                 delegate?.connectedGuestsChanged(session.connectedPeers)
             }
@@ -75,6 +77,7 @@ extension SplooshHost {
     // Handles incomming NSData
     public override func session(session: MCSession, didReceiveData data: NSData,
         fromPeer peerID: MCPeerID) {
+            NSLog("%@", "Data received: \(data)")
             delegate?.handleDataPacket(data, peerID: peerID)
     }
 }
