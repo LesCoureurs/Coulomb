@@ -103,8 +103,10 @@ extension SplooshGuest {
             NSLog("%@", "peer \(peerID) didChangeState: \(state.stringValue())")
             if state != .Connecting {
                 if state == .Connected {
-//                    serviceBrowser?.stopBrowsingForPeers()
+                    serviceBrowser?.stopBrowsingForPeers()
                     delegate?.connectedToHost(peerID)
+                } else {
+                    serviceBrowser?.startBrowsingForPeers()
                 }
                 delegate?.connectionsChanged(session.connectedPeers)
             }

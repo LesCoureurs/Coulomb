@@ -70,6 +70,11 @@ extension SplooshHost {
         didChangeState state: MCSessionState) {
             NSLog("%@", "peer \(peerID) didChangeState: \(state.stringValue())")
             if state != .Connecting {
+                if state == .Connected {
+                    self.serviceAdvertiser?.stopAdvertisingPeer()
+                } else {
+                    self.serviceAdvertiser?.startAdvertisingPeer()
+                }
                 delegate?.connectedGuestsChanged(session.connectedPeers)
             }
     }
