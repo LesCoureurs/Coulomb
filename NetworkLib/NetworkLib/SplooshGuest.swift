@@ -58,10 +58,6 @@ public class SplooshGuest: SplooshCommon {
         return hostsFound
     }
     
-    public func getFoundHostAtTableRow(rowNum: Int) -> MCPeerID? {
-        return hostsFound[rowNum]
-    }
-    
     // When deliberately disconnect
     public func disconnect() {
         session.disconnect()
