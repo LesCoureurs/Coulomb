@@ -41,6 +41,13 @@ public class SplooshHost: SplooshCommon {
     public func getConnectedPeers() -> [MCPeerID] {
         return session.connectedPeers
     }
+    
+    // When deliberately disconnect
+    public func disconnect() {
+        session.disconnect()
+        NSLog("%@", "disconnected from \(session.hashValue)")
+        startSearchingForGuests()
+    }
 }
 
 extension SplooshHost: MCNearbyServiceAdvertiserDelegate {

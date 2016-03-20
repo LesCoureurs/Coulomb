@@ -61,6 +61,13 @@ public class SplooshGuest: SplooshCommon {
     public func getFoundHostAtTableRow(rowNum: Int) -> MCPeerID? {
         return hostsFound[rowNum]
     }
+    
+    // When deliberately disconnect
+    public func disconnect() {
+        session.disconnect()
+        NSLog("%@", "disconnected from \(session.hashValue)")
+        startSearchingForHosts()
+    }
 }
 
 extension SplooshGuest: MCNearbyServiceBrowserDelegate {
