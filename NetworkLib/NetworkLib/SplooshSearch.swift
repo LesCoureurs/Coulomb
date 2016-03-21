@@ -52,7 +52,8 @@ public class SplooshSearch: NSObject {
     }
     
     deinit {
-        stopPeerSearch()
+        stopAdvertisingHost()
+        stopSearchingForHosts()
     }
     
     // MARK: Methods for host
