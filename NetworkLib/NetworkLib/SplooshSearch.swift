@@ -189,9 +189,13 @@ extension SplooshSearch: MCSessionDelegate {
             if state != .Connecting {
                 if state == .Connected {
                     NSLog("%@", "connected to \(session.hashValue)")
+                    // If currently a guest, stop looking for host
+                    stopSearchingForHosts()
                     delegate?.connectedToPeer(peerID)
                 } else {
                     NSLog("%@", "not connected to \(session.hashValue)")
+                    // Disconnected from a session, look for host again
+                    startSearchingForHosts()
                 }
                 
                 delegate?.connectionsChanged(session.connectedPeers)
