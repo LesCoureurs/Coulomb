@@ -9,7 +9,7 @@
 import MultipeerConnectivity
 import UIKit
 
-public protocol SplooshSearchDelegate: class {
+public protocol CoulombNetworkDelegate: class {
     func foundHostsChanged(foundHosts: [MCPeerID])
     
     func invitationToConnectReceived(peer: MCPeerID, handleInvitation: (Bool) -> Void)
@@ -21,7 +21,7 @@ public protocol SplooshSearchDelegate: class {
     func handleDataPacket(data: NSData, peerID: MCPeerID)
 }
 
-public class SplooshSearch: NSObject {
+public class CoulombNetwork: NSObject {
     var autoAcceptGuests = true
     
     static let defaultTimeout: NSTimeInterval = 30
@@ -29,7 +29,7 @@ public class SplooshSearch: NSObject {
     private var serviceBrowser: MCNearbyServiceBrowser?
     private var foundHosts = [MCPeerID]()
     
-    public weak var delegate: SplooshSearchDelegate?
+    public weak var delegate: CoulombNetworkDelegate?
     
     private lazy var session: MCSession = {
         let session = MCSession(peer: self.myPeerId, securityIdentity: nil,
@@ -131,7 +131,7 @@ public class SplooshSearch: NSObject {
     }
 }
 
-extension SplooshSearch: MCNearbyServiceAdvertiserDelegate {
+extension CoulombNetwork: MCNearbyServiceAdvertiserDelegate {
     // Invitation is received from guest
     public func advertiser(advertiser: MCNearbyServiceAdvertiser,
         didReceiveInvitationFromPeer peerID: MCPeerID,
@@ -151,7 +151,7 @@ extension SplooshSearch: MCNearbyServiceAdvertiserDelegate {
     }
 }
 
-extension SplooshSearch: MCNearbyServiceBrowserDelegate {
+extension CoulombNetwork: MCNearbyServiceBrowserDelegate {
     // Peer is found in browser
     public func browser(browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID,
         withDiscoveryInfo info: [String : String]?) {
@@ -181,7 +181,7 @@ extension SplooshSearch: MCNearbyServiceBrowserDelegate {
     }
 }
 
-extension SplooshSearch: MCSessionDelegate {
+extension CoulombNetwork: MCSessionDelegate {
     // Handles MCSessionState changes: NotConnected, Connecting and Connected.
     public func session(session: MCSession, peer peerID: MCPeerID,
         didChangeState state: MCSessionState) {

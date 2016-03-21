@@ -13,7 +13,7 @@
 		7AE197E71C96EB7A00BD3CBA /* NetworkLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AE197E61C96EB7A00BD3CBA /* NetworkLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7AE197EE1C96EB7A00BD3CBA /* NetworkLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE197E31C96EB7A00BD3CBA /* NetworkLib.framework */; };
 		7AE197F31C96EB7A00BD3CBA /* NetworkLibTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE197F21C96EB7A00BD3CBA /* NetworkLibTests.swift */; };
-		7AE197FE1C96FDE800BD3CBA /* SplooshSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE197FD1C96FDE800BD3CBA /* SplooshSearch.swift */; };
+		7AE197FE1C96FDE800BD3CBA /* CoulombNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE197FD1C96FDE800BD3CBA /* CoulombNetwork.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +36,7 @@
 		7AE197ED1C96EB7A00BD3CBA /* NetworkLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetworkLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AE197F21C96EB7A00BD3CBA /* NetworkLibTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLibTests.swift; sourceTree = "<group>"; };
 		7AE197F41C96EB7A00BD3CBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7AE197FD1C96FDE800BD3CBA /* SplooshSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplooshSearch.swift; sourceTree = "<group>"; };
+		7AE197FD1C96FDE800BD3CBA /* CoulombNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoulombNetwork.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +81,7 @@
 			children = (
 				7AE197E61C96EB7A00BD3CBA /* NetworkLib.h */,
 				7AE197E81C96EB7A00BD3CBA /* Info.plist */,
-				7AE197FD1C96FDE800BD3CBA /* SplooshSearch.swift */,
+				7AE197FD1C96FDE800BD3CBA /* CoulombNetwork.swift */,
 				7A34157F1C9A9A45007BED98 /* SplooshHost.swift */,
 				7A3415811C9A9A96007BED98 /* SplooshGuest.swift */,
 				02009B601C9B2D760057FF18 /* SplooshCommon.swift */,
@@ -210,7 +210,7 @@
 			files = (
 				7A3415821C9A9A96007BED98 /* SplooshGuest.swift in Sources */,
 				7A3415801C9A9A45007BED98 /* SplooshHost.swift in Sources */,
-				7AE197FE1C96FDE800BD3CBA /* SplooshSearch.swift in Sources */,
+				7AE197FE1C96FDE800BD3CBA /* CoulombNetwork.swift in Sources */,
 				02009B611C9B2D760057FF18 /* SplooshCommon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
