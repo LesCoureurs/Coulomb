@@ -10,18 +10,24 @@ import MultipeerConnectivity
 import UIKit
 
 public protocol SplooshSearchDelegate: class {
-    func foundPeersChanged(foundPeers: [String])
+    func foundHostsChanged(foundHosts: [MCPeerID])
     
-    func invitationReceived(peer: String, handleInvitation: (Bool) -> Void)
+    func invitationToConnectReceived(peer: MCPeerID, handleInvitation: (Bool) -> Void)
     
-    func connectedPeersChanged(peers: [String])
+    func connectionsChanged(peers: [MCPeerID])
+    
+    func connectedToPeer(peer: MCPeerID)
+    
+    func handleDataPacket(data: NSData, peerID: MCPeerID)
 }
 
 public class SplooshSearch: NSObject {
+    var autoAcceptGuests = true
+    
+    static let defaultTimeout: NSTimeInterval = 30
     private var serviceAdvertiser: MCNearbyServiceAdvertiser?
     private var serviceBrowser: MCNearbyServiceBrowser?
-    private var isSearching = false
-    private var foundPeers = [String]()
+    private var foundHosts = [MCPeerID]()
     
     public weak var delegate: SplooshSearchDelegate?
     
@@ -49,58 +55,97 @@ public class SplooshSearch: NSObject {
         stopPeerSearch()
     }
     
-    public func startPeerSearch() {
-        isSearching = true
-        if let advertiser = serviceAdvertiser {
-            advertiser.startAdvertisingPeer()
-        } else {
+    // MARK: Methods for host
+    public func startAdversitingHost() {
+        if serviceAdvertiser == nil {
             serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId,
-                discoveryInfo: nil, serviceType: serviceType)
-            serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceType)
-            
+                discoveryInfo: ["peerType": "host"], serviceType: serviceType)
             serviceAdvertiser?.delegate = self
-            serviceBrowser?.delegate = self
-            
-            serviceAdvertiser?.startAdvertisingPeer()
-            serviceBrowser?.startBrowsingForPeers()
         }
+        serviceAdvertiser?.startAdvertisingPeer()
     }
     
-    public func cancelPeerSearch() {
-        stopPeerSearch()
-        session.disconnect()
-    }
-    
-    public func finishPeerSearch() -> MCSession? {
-        stopPeerSearch()
-        return session
-    }
-    
-    public func stopPeerSearch() {
+    public func stopAdvertisingHost() {
         if let advertiser = serviceAdvertiser {
             advertiser.stopAdvertisingPeer()
         }
+    }
+    
+    // MARK: Methods for guest
+    public func startSearchingForHosts() {
+        if serviceBrowser == nil {
+            serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceType)
+            serviceBrowser?.delegate = self
+        }
+        foundHosts = []
+        serviceBrowser?.startBrowsingForPeers()
+    }
+    
+    public func stopSearchingForHosts() {
         if let browser = serviceBrowser {
             browser.stopBrowsingForPeers()
         }
-        isSearching = false
     }
     
-    public func connectToPeer(peer: String) {
-        let peerId = MCPeerID(displayName: peer)
-        serviceBrowser?.invitePeer(peerId, toSession: session, withContext: nil, timeout: 30)
+    public func connectToHost(host: MCPeerID, context: NSData? = nil, timeout: NSTimeInterval = defaultTimeout) {
+        guard foundHosts.contains(host) else {
+            return
+        }
+        
+        guard let browser = serviceBrowser else {
+            return
+        }
+        
+        browser.invitePeer(host, toSession: session, withContext: context, timeout: timeout)
+    }
+    
+    public func getFoundHosts() -> [MCPeerID] {
+        return foundHosts
+    }
+    
+    // MARK: Methods for session
+    public func getConnectedPeers() -> [MCPeerID] {
+        return session.connectedPeers
+    }
+    
+    // When deliberately disconnect
+    // Disconnect from current session, browse for another host
+    public func disconnect() {
+        session.disconnect()
+        NSLog("%@", "disconnected from \(session.hashValue)")
+        startSearchingForHosts()
+    }
+    
+    // This method is async
+    public func sendData(data: NSData, mode: MCSessionSendDataMode) -> Bool {
+        do {
+            NSLog("%@", "send data to host: \(data)")
+            try session.sendData(data, toPeers: session.connectedPeers, withMode: mode)
+        } catch {
+            NSLog("%@", "send data failed: \(data)")
+            return false
+        }
+        
+        return true
     }
 }
 
 extension SplooshSearch: MCNearbyServiceAdvertiserDelegate {
-    // Invitation is received from peer
+    // Invitation is received from guest
     public func advertiser(advertiser: MCNearbyServiceAdvertiser,
         didReceiveInvitationFromPeer peerID: MCPeerID,
         withContext context: NSData?, invitationHandler: (Bool, MCSession) -> Void) {
+            NSLog("%@", "didReceiveInvitationFromPeer \(peerID)")
             
-            delegate?.invitationReceived(peerID.displayName) {
-                (approved) in
-                invitationHandler(approved, self.session)
+            let acceptGuest = {
+                (accepted: Bool) -> Void in
+                invitationHandler(accepted, self.session)
+            }
+            
+            if autoAcceptGuests {
+                acceptGuest(true)
+            } else {
+                delegate?.invitationToConnectReceived(peerID, handleInvitation: acceptGuest)
             }
     }
 }
@@ -109,16 +154,29 @@ extension SplooshSearch: MCNearbyServiceBrowserDelegate {
     // Peer is found in browser
     public func browser(browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID,
         withDiscoveryInfo info: [String : String]?) {
-            foundPeers.append(peerID.displayName)
-            delegate?.foundPeersChanged(foundPeers)
+            NSLog("%@", "foundPeer: \(peerID)")
+            
+            guard let discoveryInfo = info else {
+                return
+            }
+            guard discoveryInfo["peerType"] == "host" else {
+                return
+            }
+            
+            NSLog("%@", "invitePeer: \(peerID)")
+            foundHosts.append(peerID)
+            delegate?.foundHostsChanged(foundHosts)
     }
     
     // Peer is lost in browser
     public func browser(browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-        if let index = foundPeers.indexOf(peerID.displayName) {
-            foundPeers.removeAtIndex(index)
-            delegate?.foundPeersChanged(foundPeers)
+        guard foundHosts.contains(peerID) else {
+            return
         }
+        
+        let index = foundHosts.indexOf(peerID)!
+        foundHosts.removeAtIndex(index)
+        delegate?.foundHostsChanged(foundHosts)
     }
 }
 
@@ -126,13 +184,24 @@ extension SplooshSearch: MCSessionDelegate {
     // Handles MCSessionState changes: NotConnected, Connecting and Connected.
     public func session(session: MCSession, peer peerID: MCPeerID,
         didChangeState state: MCSessionState) {
-            delegate?.connectedPeersChanged(session.connectedPeers.map{$0.displayName})
+            NSLog("%@", "peer \(peerID) didChangeState: \(state.stringValue())")
+            if state != .Connecting {
+                if state == .Connected {
+                    NSLog("%@", "connected to \(session.hashValue)")
+                    delegate?.connectedToPeer(peerID)
+                } else {
+                    NSLog("%@", "not connected to \(session.hashValue)")
+                }
+                
+                delegate?.connectionsChanged(session.connectedPeers)
+            }
     }
     
     // Handles incomming NSData
     public func session(session: MCSession, didReceiveData data: NSData,
         fromPeer peerID: MCPeerID) {
-            
+            NSLog("%@", "Data received: \(data)")
+            delegate?.handleDataPacket(data, peerID: peerID)
     }
     
     // Handles incoming NSInputStream
@@ -151,5 +220,15 @@ extension SplooshSearch: MCSessionDelegate {
     public func session(session: MCSession, didStartReceivingResourceWithName resourceName: String,
         fromPeer peerID: MCPeerID, withProgress progress: NSProgress) {
             
+    }
+}
+
+extension MCSessionState {
+    func stringValue() -> String {
+        switch(self) {
+        case .NotConnected: return "NotConnected"
+        case .Connecting: return "Connecting"
+        case .Connected: return "Connected"
+        }
     }
 }
