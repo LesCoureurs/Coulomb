@@ -22,7 +22,7 @@ public protocol CoulombNetworkDelegate: class {
 }
 
 public class CoulombNetwork: NSObject {
-    var autoAcceptGuests = true
+    public var autoAcceptGuests = true
     
     static let defaultTimeout: NSTimeInterval = 30
     private var serviceAdvertiser: MCNearbyServiceAdvertiser?
