@@ -191,8 +191,8 @@ extension CoulombNetwork: MCSessionDelegate {
                     delegate?.connectedToPeer(peerID)
                 } else {
                     NSLog("%@", "not connected to \(session.hashValue)")
-                    // Disconnected from a session, look for host again
-                    startSearchingForHosts()
+                    // Disconnected from a session
+                    delegate?.disconnectedFromSession()
                 }
                 
                 delegate?.connectedPeersInSessionChanged(session.connectedPeers)
