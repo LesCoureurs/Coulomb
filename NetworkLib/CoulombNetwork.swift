@@ -11,13 +11,10 @@ import UIKit
 
 public protocol CoulombNetworkDelegate: class {
     func foundHostsChanged(foundHosts: [MCPeerID])
-    
     func invitationToConnectReceived(peer: MCPeerID, handleInvitation: (Bool) -> Void)
-    
-    func connectionsChanged(peers: [MCPeerID])
-    
+    func connectedPeersInSessionChanged(peers: [MCPeerID])
     func connectedToPeer(peer: MCPeerID)
-    
+    func disconnectedFromSession()
     func handleDataPacket(data: NSData, peerID: MCPeerID)
 }
 
@@ -198,7 +195,7 @@ extension CoulombNetwork: MCSessionDelegate {
                     startSearchingForHosts()
                 }
                 
-                delegate?.connectionsChanged(session.connectedPeers)
+                delegate?.connectedPeersInSessionChanged(session.connectedPeers)
             }
     }
     
