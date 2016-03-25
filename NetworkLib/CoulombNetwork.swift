@@ -54,7 +54,7 @@ public class CoulombNetwork: NSObject {
     }
     
     // MARK: Methods for host
-    public func startAdversitingHost() {
+    public func startAdvertisingHost() {
         if serviceAdvertiser == nil {
             serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId,
                 discoveryInfo: ["peerType": "host"], serviceType: serviceType)
