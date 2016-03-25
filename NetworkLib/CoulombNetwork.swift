@@ -28,8 +28,8 @@ public class CoulombNetwork: NSObject {
     
     public weak var delegate: CoulombNetworkDelegate?
     
-    private lazy var session: MCSession = {
-        let session = MCSession(peer: self.myPeerId, securityIdentity: nil,
+    private lazy var session: MCSessionWithHost = {
+        let session = MCSessionWithHost(peer: self.myPeerId, securityIdentity: nil,
             encryptionPreference: .Required)
         session.delegate = self
         return session
@@ -104,6 +104,17 @@ public class CoulombNetwork: NSObject {
     // MARK: Methods for session
     public func getConnectedPeers() -> [MCPeerID] {
         return session.connectedPeers
+    }
+    
+    public func iAmHost() -> Bool {
+        return myPeerId == session.host
+    }
+    
+    public func assignSelfAsHost() {
+        guard session.host == nil else {
+            return
+        }
+        session.host = myPeerId
     }
     
     // When deliberately disconnect

@@ -9,16 +9,4 @@
 import MultipeerConnectivity
 class MCSessionWithHost: MCSession {
     var host: MCPeerID?
-    
-    func assignNextHostInLine() {
-        guard host == nil else {
-            return
-        }
-        
-        guard !connectedPeers.isEmpty else {
-            return
-        }
-        
-        host = connectedPeers[0]
-    }
 }
