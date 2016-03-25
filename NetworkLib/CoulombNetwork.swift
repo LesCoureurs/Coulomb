@@ -111,8 +111,8 @@ public class CoulombNetwork: NSObject {
         return session.connectedPeers
     }
     
-    public func iAmHost() -> Bool {
-        return myPeerId == session.host
+    private func isHost(peer: MCPeerID) -> Bool {
+        return peer == session.host
     }
     
     public func assignSelfAsHost() {
@@ -210,6 +210,11 @@ extension CoulombNetwork: MCSessionDelegate {
                     delegate?.connectedToPeer(peerID)
                 } else {
                     NSLog("%@", "not connected to \(session.hashValue)")
+                    // If the disconnected peer was the host, assign self as the new host
+                    if isHost(peerID) {
+                        assignSelfAsHost()
+                    }
+                    
                     // Disconnected from a session
                     delegate?.disconnectedFromSession()
                 }
