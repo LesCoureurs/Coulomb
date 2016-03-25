@@ -25,6 +25,7 @@ public class CoulombNetwork: NSObject {
     private var serviceAdvertiser: MCNearbyServiceAdvertiser?
     private var serviceBrowser: MCNearbyServiceBrowser?
     private var foundHosts = [MCPeerID]()
+    private var peersInSession: Set<MCPeerID>
     
     public weak var delegate: CoulombNetworkDelegate?
     
@@ -41,6 +42,7 @@ public class CoulombNetwork: NSObject {
     public init(serviceType: String, deviceId: String) {
         self.serviceType = serviceType
         myPeerId = MCPeerID(displayName: deviceId)
+        peersInSession = Set<MCPeerID>()
     }
     
     public convenience init(serviceType: String) {
@@ -206,8 +208,13 @@ extension CoulombNetwork: MCSessionDelegate {
             if state != .Connecting {
                 if state == .Connected {
                     NSLog("%@", "connected to \(session.hashValue)")
+                    // Update the set of peers in the session
+                    peersInSession.insert(peerID)
+                    
                     // If currently a guest, stop looking for host
                     stopSearchingForHosts()
+                    
+                    // Pass to delegate
                     delegate?.connectedToPeer(peerID)
                 } else {
                     NSLog("%@", "not connected to \(session.hashValue)")
