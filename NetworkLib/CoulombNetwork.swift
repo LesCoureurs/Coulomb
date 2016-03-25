@@ -130,6 +130,7 @@ public class CoulombNetwork: NSObject {
     public func disconnect() {
         session.disconnect()
         NSLog("%@", "disconnected from \(session.hashValue)")
+        stopAdvertisingHost()
         startSearchingForHosts()
     }
     
