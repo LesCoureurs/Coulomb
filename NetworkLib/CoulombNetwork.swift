@@ -114,7 +114,10 @@ public class CoulombNetwork: NSObject {
         guard session.host == nil else {
             return
         }
+        
         session.host = myPeerId
+        stopSearchingForHosts()
+        startAdvertisingHost()
     }
     
     // When deliberately disconnect
