@@ -95,6 +95,11 @@ public class CoulombNetwork: NSObject {
         }
         
         browser.invitePeer(host, toSession: session, withContext: context, timeout: timeout)
+        
+        // If the session is still without host, assign a new one
+        if session.host == nil {
+            session.host = host
+        }
     }
     
     public func getFoundHosts() -> [MCPeerID] {
