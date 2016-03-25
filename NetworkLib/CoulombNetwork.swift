@@ -121,6 +121,7 @@ public class CoulombNetwork: NSObject {
         return peer == session.host
     }
     
+    // Assign self as the new host, but only when host is nil
     public func assignSelfAsHost() {
         guard session.host == nil else {
             return
