@@ -25,6 +25,10 @@ public class CoulombNetwork: NSObject {
     private var serviceAdvertiser: MCNearbyServiceAdvertiser?
     private var serviceBrowser: MCNearbyServiceBrowser?
     private var foundHosts = [MCPeerID]()
+    
+    // A set of all peers in the session.
+    // We need this since session.connectedPeers only contains peers except self.
+    // Useful for discovering disconnection.
     private var peersInSession: Set<MCPeerID>
     
     public weak var delegate: CoulombNetworkDelegate?
@@ -223,8 +227,15 @@ extension CoulombNetwork: MCSessionDelegate {
                         assignSelfAsHost()
                     }
                     
-                    // Disconnected from a session
-                    delegate?.disconnectedFromSession()
+                    // If session.connectedPeers is empty, it implies that either:
+                    // - Self is disconnected from the session
+                    // - The session has no other connected peer
+                    // Combine with peersInSession count > 1, we can be certain that
+                    // self is disconnected.
+                    if session.connectedPeers.isEmpty && peersInSession.count > 1 {
+                        peersInSession.remove(myPeerId)
+                        delegate?.disconnectedFromSession()
+                    }
                 }
                 
                 delegate?.connectedPeersInSessionChanged(session.connectedPeers)
