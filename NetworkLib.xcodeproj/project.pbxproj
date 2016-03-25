@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		020163691CA5348600316DC7 /* MCSessionWithHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020163681CA5348600316DC7 /* MCSessionWithHost.swift */; };
 		7AE197E71C96EB7A00BD3CBA /* NetworkLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AE197E61C96EB7A00BD3CBA /* NetworkLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7AE197EE1C96EB7A00BD3CBA /* NetworkLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE197E31C96EB7A00BD3CBA /* NetworkLib.framework */; };
 		7AE197F31C96EB7A00BD3CBA /* NetworkLibTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE197F21C96EB7A00BD3CBA /* NetworkLibTests.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		020163681CA5348600316DC7 /* MCSessionWithHost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCSessionWithHost.swift; sourceTree = "<group>"; };
 		7AE197E31C96EB7A00BD3CBA /* NetworkLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetworkLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AE197E61C96EB7A00BD3CBA /* NetworkLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkLib.h; sourceTree = "<group>"; };
 		7AE197E81C96EB7A00BD3CBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				7AE197E61C96EB7A00BD3CBA /* NetworkLib.h */,
 				7AE197E81C96EB7A00BD3CBA /* Info.plist */,
 				7AE197FD1C96FDE800BD3CBA /* CoulombNetwork.swift */,
+				020163681CA5348600316DC7 /* MCSessionWithHost.swift */,
 			);
 			path = NetworkLib;
 			sourceTree = "<group>";
@@ -151,7 +154,7 @@
 				TargetAttributes = {
 					7AE197E21C96EB7A00BD3CBA = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = K2MUGZ7D3M;
+						DevelopmentTeam = 5Q2K45WZP8;
 					};
 					7AE197EC1C96EB7A00BD3CBA = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -199,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				020163691CA5348600316DC7 /* MCSessionWithHost.swift in Sources */,
 				7AE197FE1C96FDE800BD3CBA /* CoulombNetwork.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,6 +319,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -324,6 +330,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group5.NetworkLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -333,6 +340,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -342,6 +351,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group5.NetworkLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
