@@ -215,10 +215,11 @@ extension CoulombNetwork: MCSessionDelegate {
                         NSLog("%@", "Self was not removed")
                         NSLog("%@", "Current host: \(self.session.host)")
                         
-                        // Assign a new host as the first item in peersInSession set that is not the old host
-                        // If the current item is the next in line, convert it to a host
+                        // If the removed item is the current host
                         if self.session.host == peerID {
                             var nextHost = peerID
+                            
+                            // Assign a new host as the first item in peersInSession set that is not the old host
                             for peer in self.session.peersInSession {
                                 if peer != peerID {
                                     nextHost = peer
@@ -227,6 +228,7 @@ extension CoulombNetwork: MCSessionDelegate {
                             }
                             NSLog("%@", "Next potential host: \(nextHost)")
                             
+                            // If the current item is the next in line, convert it to a host
                             if myPeerId == nextHost {
                                 NSLog("%@", "my peer is the next host")
                                 // Convert current item into a host
