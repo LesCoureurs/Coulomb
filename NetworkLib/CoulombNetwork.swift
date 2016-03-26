@@ -208,10 +208,6 @@ extension CoulombNetwork: MCSessionDelegate {
                     delegate?.connectedToPeer(peerID)
                 } else {
                     NSLog("%@", "not connected to \(session.hashValue)")
-                    // If the disconnected peer was the host, assign self as the new host
-                    if isHost(peerID) {
-                        assignSelfAsHost()
-                    }
                     
                     // If session.connectedPeers is empty, it implies that either:
                     // - Self is disconnected from the session
