@@ -117,21 +117,6 @@ public class CoulombNetwork: NSObject {
         return session.connectedPeers
     }
     
-    private func isHost(peer: MCPeerID) -> Bool {
-        return peer == session.host
-    }
-    
-    // Assign self as the new host, but only when host is nil
-    public func assignSelfAsHost() {
-        guard session.host == nil else {
-            return
-        }
-        
-        session.host = myPeerId
-        stopSearchingForHosts()
-        startAdvertisingHost()
-    }
-    
     // When deliberately disconnect
     // Disconnect from current session, browse for another host
     public func disconnect() {
