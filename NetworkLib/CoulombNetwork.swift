@@ -69,7 +69,6 @@ public class CoulombNetwork: NSObject {
     }
     
     public func stopAdvertisingHost() {
-        self.host = nil
         serviceAdvertiser?.stopAdvertisingPeer()
         serviceAdvertiser?.delegate = nil
     }
