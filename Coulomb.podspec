@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "Coulomb"
-  s.version = "1.0.2"
+  s.version = "1.0.2.1"
   s.summary = "Network Library built on Multipeer Connectivity."
   s.description = "A zero-config real-time networking library built on Apple's Multipeer Connectivity Framework."
   s.homepage = "https://github.com/LesCoureurs/Coulomb"
